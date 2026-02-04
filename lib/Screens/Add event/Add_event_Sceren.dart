@@ -286,7 +286,7 @@ class AddEventSceren extends StatelessWidget {
                             title: TitleController.text,
                             Description: DescriptionController.text,
                             date: AddEventProvider.Date.microsecondsSinceEpoch,
-                            categry: Photos[AddEventProvider.photosIndex],
+                            category: Photos[AddEventProvider.photosIndex],
                           ),
                         );
                       },

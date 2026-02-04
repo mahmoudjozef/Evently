@@ -13,11 +13,9 @@ DateTime Date=DateTime.now();
     photosIndex=index;
     notifyListeners();
   }
-
-
   AddEvent(TaskModel task){
-    FirebaseFunctions.craeteTask(task);
-  notifyListeners();
+FirebaseFunctions.createTask(task);
+notifyListeners();
   }
 
 

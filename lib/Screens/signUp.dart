@@ -253,9 +253,7 @@ class SignUp extends StatelessWidget {
                           emailAddress.text,
                           password.text,
                           name.text,
-                          () {
-                            Navigator.pushNamed(context, Login.routeNamed);
-                          },
+                          () {Navigator.pushNamed(context, Login.routeNamed);},
                           (message) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

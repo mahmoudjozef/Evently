@@ -4,26 +4,38 @@ import 'package:evently_new/model/task_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseFunctions {
- static CollectionReference <TaskModel> getTaskCollction() {
-   return FirebaseFirestore.instance
-        .collection('tasks')
-        .withConverter<TaskModel>(
-          fromFirestore: (snapshot, options) {
-            return TaskModel.fromJson(snapshot.data()!);
-          },
-          toFirestore: (value, options) {
-            return value.toJson();
-          },
-        );
-  }
 
- static craeteTask(TaskModel task) {
-    var Collction=getTaskCollction();
-    var dec=Collction.doc();
-    task.id=dec.id;
-   return dec.set(task);
-
+  static final TaskCollection = FirebaseFirestore.instance.collection('TaskCollection').withConverter<TaskModel>(
+    fromFirestore: (snapshot, _) => TaskModel.fromJson(snapshot.data()!),
+    toFirestore: (value, options) => value.toJson(),
+  );
+  static Future<void> createTask(TaskModel task) async {
+    try {
+      var docRef = TaskCollection.doc();
+      task.id = docRef.id;
+      await docRef.set(task);
+      print("Task added successfully!");
+    } catch (e) {
+      print("Error creating task: $e");
+      rethrow;
+    }
   }
+  // static CollectionReference <TaskModel> getTaskCollection() {
+  //   return FirebaseFirestore.instance
+  //       .collection('Task')
+  //       .withConverter(
+  //         fromFirestore: (snapshot, options) =>
+  //             TaskModel.fromJson(snapshot.data()!),
+  //         toFirestore: (value, options) => value.toJson(),
+  //       );
+  // }
+  //
+  // static craeteTask(TaskModel task) {
+  //   var Collection = getTaskCollection();
+  //   var dec = Collection.doc();
+  //   task.id = dec.id;
+  //   return dec.set(task);
+  // }
 
   static sendPasswordReset(
     String emailAddress,

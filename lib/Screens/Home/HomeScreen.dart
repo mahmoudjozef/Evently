@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_new/Screens/Add%20event/Add_event_Sceren.dart';
 import 'package:evently_new/Screens/Home/Taps/Favorite.dart';
-import 'package:evently_new/Screens/Home/Taps/Home.dart';
+import 'package:evently_new/Screens/Home/Taps/Home_page.dart';
 import 'package:evently_new/Screens/Home/Taps/profile.dart';
 import 'package:evently_new/providers/Home_prov.dart';
 import 'package:flutter/cupertino.dart';

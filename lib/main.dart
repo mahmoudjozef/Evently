@@ -1,6 +1,6 @@
 import 'package:evently_new/Screens/Add%20event/Add_event_Sceren.dart';
 import 'package:evently_new/Screens/Home/HomeScreen.dart';
-import 'package:evently_new/Screens/Home/Taps/Home.dart';
+import 'package:evently_new/Screens/Home/Taps/Home_page.dart';
 import 'package:evently_new/Screens/forgetPassword.dart';
 import 'package:evently_new/Screens/signUp.dart';
 import 'package:evently_new/providers/Theme_Provider.dart';

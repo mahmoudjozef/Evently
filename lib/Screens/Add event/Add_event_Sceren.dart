@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently_new/Screens/Home/Taps/Home.dart';
+import 'package:evently_new/Screens/Home/Taps/Home_page.dart';
 import 'package:evently_new/class/colors.dart';
 import 'package:evently_new/model/task_model.dart';
 import 'package:evently_new/providers/addEvent.dart';

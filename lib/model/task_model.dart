@@ -4,16 +4,26 @@ class TaskModel {
   int date;
   String id;
   String category;
+  bool isFavorite;
 
-  TaskModel({required this.title, required this.Description, required this.date, this.id = '', required this.category,});
+  TaskModel({
+    required this.title,
+    required this.Description,
+    required this.date,
+    this.id = '',
+    required this.category,
+    this.isFavorite = false,
+  });
 
-  TaskModel.fromJson(Map<String, dynamic> json) :this(
-    title: json['Title'],
-    Description: json['Description'],
-    date: json['date'],
-    category: json['category'],
-    id: json['id'],);
-
+  TaskModel.fromJson(Map<String, dynamic> json)
+      : this(
+          title: json['Title'],
+          Description: json['Description'],
+          date: json['date'],
+          category: json['category'],
+          id: json['id'],
+          isFavorite: json['isFavorite'] ?? false,
+        );
 
   Map<String, dynamic> toJson() {
     return {
@@ -22,10 +32,7 @@ class TaskModel {
       'date': date,
       'category': category,
       'id': id,
+      'isFavorite': isFavorite,
     };
   }
-
-
 }
-
-//++++++++معنغتلفقثص++++++++++++++++++++++++++++++++++

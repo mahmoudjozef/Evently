@@ -4,26 +4,38 @@ import 'package:evently_new/model/task_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseFunctions {
-  static final getTaskCollection = FirebaseFirestore.instance
-      .collection('TaskCollection')
-      .withConverter<TaskModel>(
-        fromFirestore: (snapshot, _) => TaskModel.fromJson(snapshot.data()!),
-        toFirestore: (value, options) => value.toJson(),
-      );
-  static Future<void> createTask(TaskModel task) async {
-    try {
-      var docRef = getTaskCollection.doc();
-      task.id = docRef.id;
-      await docRef.set(task);
-      print("Task added successfully!");
-    } catch (e) {
-      print("Error creating task: $e");
-      rethrow;
-    }
+  static CollectionReference<TaskModel> getTasksCollection() {
+    return FirebaseFirestore.instance
+        .collection('tasks')
+        .withConverter<TaskModel>(
+      fromFirestore: (snapshot, options) {
+        return TaskModel.fromJson(snapshot.data()!);
+      },
+      toFirestore: (value, options) {
+        return value.toJson();
+      },
+    );
   }
-  static Future<QuerySnapshot<TaskModel>> getTask() {
-    var collection = getTaskCollection;
-    return collection.get();
+
+  static Future<void> createTask(TaskModel task) {
+    var collection = getTasksCollection();
+    var docRef = collection.doc();
+    task.id = docRef.id;
+    return docRef.set(task);
+  }
+
+  static Future<void> updateTask(TaskModel task) {
+    return getTasksCollection().doc(task.id).update(task.toJson());
+  }
+
+  static Stream<QuerySnapshot<TaskModel>> getTasks() {
+    return getTasksCollection().snapshots();
+  }
+
+  static Stream<QuerySnapshot<TaskModel>> getFavoriteTasks() {
+    return getTasksCollection()
+        .where('isFavorite', isEqualTo: true)
+        .snapshots();
   }
 
   static sendPasswordReset(
@@ -51,17 +63,22 @@ class FirebaseFunctions {
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-            email: emailAddress,
-            password: password,
-          );
-      credential.user!.sendEmailVerification();
+        email: emailAddress,
+        password: password,
+      );
+      await credential.user!.updateDisplayName(name);
+      await credential.user!.sendEmailVerification();
       OnSuccess();
     } on FirebaseAuthException catch (e) {
-      OnError('OnError'.tr());
-      print('Thames Error');
+      if (e.code == 'weak-password') {
+        OnError('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        OnError('The account already exists for that email.');
+      } else {
+        OnError(e.message ?? 'Error');
+      }
     } catch (e) {
-      OnError('OnError'.tr());
-      print('Thames Error');
+      OnError(e.toString());
     }
   }
 
@@ -82,7 +99,7 @@ class FirebaseFunctions {
         OnError('Please verify your email'.tr());
       }
     } on FirebaseAuthException catch (e) {
-      OnError('OnError'.tr());
+      OnError(e.message ?? 'Error');
     }
   }
 }

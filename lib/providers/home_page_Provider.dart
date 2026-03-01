@@ -11,16 +11,5 @@ class HomePageProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> loadTasks() async {
-    var snapshot = await FirebaseFunctions.getTask();
-    tasks = snapshot.docs.map((e) => e.data()).toList();
-    notifyListeners();
-  }
 
-  List<TaskModel> get filteredTasks {
-    return tasks.where((task) {
-      return task.category ==
-          ['Birthday', 'Book Club', 'Exhibition', 'Sport', 'Meeting'][photosIndex];
-    }).toList();
-  }
 }

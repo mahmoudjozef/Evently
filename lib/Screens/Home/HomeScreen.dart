@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_new/Screens/Add%20event/Add_event_Sceren.dart';
 import 'package:evently_new/Screens/Home/Taps/Favorite.dart';
-import 'package:evently_new/Screens/Home/Taps/Home_page.dart';
 import 'package:evently_new/Screens/Home/Taps/profile.dart';
+import 'package:evently_new/Screens/Home/Taps/Home.dart';
+
 import 'package:evently_new/providers/Home_prov.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,15 +24,23 @@ class Homescreen extends StatelessWidget {
       builder: (context, child) {
         var HomeProvider = Provider.of<HomeProv>(context);
         return Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .surface,
           appBar: AppBar(
             actions: [
               Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 8)),
               Image.asset(
-                Theme.of(context).brightness == Brightness.light
+                Theme
+                    .of(context)
+                    .brightness == Brightness.light
                     ? 'assets/icons/HOME/sun.png'
                     : 'assets/icons/HOME/moon.png',
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .primary,
               ),
               SizedBox(width: 15),
 
@@ -71,8 +80,13 @@ class Homescreen extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.circular(28),
             ),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            onPressed: () {Navigator.pushNamed(context, AddEventSceren.routeNamed);},
+            backgroundColor: Theme
+                .of(context)
+                .colorScheme
+                .primary,
+            onPressed: () {
+              Navigator.pushNamed(context, AddEventSceren.routeNamed);
+            },
             child: Icon(Icons.add, color: Colors.white),
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -84,9 +98,14 @@ class Homescreen extends StatelessWidget {
             selectedLabelStyle: GoogleFonts.poppins(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme
+                  .of(context)
+                  .colorScheme
+                  .primary,
             ),
-            backgroundColor: Theme.of(context).brightness == Brightness.light
+            backgroundColor: Theme
+                .of(context)
+                .brightness == Brightness.light
                 ? Color(0xffFFFFFF)
                 : Color(0xff000F30),
             items: [
@@ -94,7 +113,10 @@ class Homescreen extends StatelessWidget {
                 icon: Image.asset(
                   'assets/icons/Bottom/home-2.png',
                   color: HomeProvider.BotoomNavegation == 0
-                      ? Theme.of(context).colorScheme.primary
+                      ? Theme
+                      .of(context)
+                      .colorScheme
+                      .primary
                       : Colors.grey,
                 ),
                 label: 'Home',
@@ -103,7 +125,10 @@ class Homescreen extends StatelessWidget {
                 icon: Image.asset(
                   'assets/icons/Bottom/Vector.png',
                   color: HomeProvider.BotoomNavegation == 1
-                      ? Theme.of(context).colorScheme.primary
+                      ? Theme
+                      .of(context)
+                      .colorScheme
+                      .primary
                       : Colors.grey,
                 ),
                 label: 'Favorite',
@@ -112,7 +137,10 @@ class Homescreen extends StatelessWidget {
                 icon: Image.asset(
                   'assets/icons/Bottom/user.png',
                   color: HomeProvider.BotoomNavegation == 2
-                      ? Theme.of(context).colorScheme.primary
+                      ? Theme
+                      .of(context)
+                      .colorScheme
+                      .primary
                       : Colors.grey,
                 ),
                 label: 'profile',
@@ -125,5 +153,10 @@ class Homescreen extends StatelessWidget {
     );
   }
 
-  List<Widget> Taps = [Home(), Favorite(), profile()];
+  List<Widget> Taps = [
+    Home(),
+    Favorite(),
+    Profile(),
+
+  ];
 }

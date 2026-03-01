@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_new/Screens/Add%20event/Add_event_Sceren.dart';
 import 'package:evently_new/Screens/Home/HomeScreen.dart';
-import 'package:evently_new/Screens/Home/Taps/Home_page.dart';
+import 'package:evently_new/Screens/Home/Taps/Home.dart';
 import 'package:evently_new/Screens/forgetPassword.dart';
 import 'package:evently_new/Screens/signUp.dart';
 import 'package:evently_new/providers/Theme_Provider.dart';
@@ -17,7 +18,8 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);await FirebaseFirestore.instance.disableNetwork();
+
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],

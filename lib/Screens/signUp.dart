@@ -2,250 +2,85 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_new/Screens/Login.dart';
 import 'package:evently_new/class/fonts.dart';
 import 'package:evently_new/fireBase/FireBase_Functions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});
 
   static const String routeNamed = 'signUp';
-  var emailAddress = TextEditingController();
-  var password = TextEditingController();
-  var password2 = TextEditingController();
-  var name = TextEditingController();
-  var fromKey = GlobalKey<FormState>();
+  final emailAddress = TextEditingController();
+  final password = TextEditingController();
+  final password2 = TextEditingController();
+  final name = TextEditingController();
+  final fromKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        title: Image.asset('assets/images/logo.png'),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Image.asset('assets/images/logo.png', height: 40),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 17),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Form(
             key: fromKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 100),
+                SizedBox(height: 40),
                 Text(
-                  'LoginTitle'.tr(),
+                  'تسجيل الدخول إلى حسابك', // النص كما في الصورة
                   style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.onSecondary,
-                    fontSize: 24,
+                    color: Color(0xff002D8F),
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 24),
-                //TEXT LOG AND PAS
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    //user
-                    TextFormField(
-                      controller: name,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          print('please Enter Your name'.tr());
-                        }
-                      },
-                      style: TextStyle(color: Color(0xff686868)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        hintText: 'user'.tr(),
-                        hintStyle: AppFont.regular16.copyWith(
-                          color: Color(0xff686868),
-                          fontSize: 14,
-                        ),
-                        prefixIcon: ImageIcon(AssetImage("assets/icons/user.png")),
-                        prefixIconColor: Color(0xffB9B9B9),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    //mail
-                    TextFormField(
-                      controller: emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please create an email address';
-                        }
-                        final bool emailValid = RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                        ).hasMatch(value);
-                        if (!emailValid) {
-                          return 'Please enter a valid email address'.tr();
-                        }
-                        if (value!.contains('@')) {
-                          print('please Type @'.tr());
-                        }
-                        if (value!.contains('gmail')) {
-                          print('Replace with '.tr());
-                        }
-                        return null;
-                      },
-                      style: TextStyle(color: Color(0xff686868)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        hintText: 'LoginTitle'.tr(),
-                        hintStyle: AppFont.regular16.copyWith(
-                          color: Color(0xff686868),
-                          fontSize: 14,
-                        ),
-                        prefixIcon: ImageIcon(AssetImage("assets/icons/sms.png")),
-                        prefixIconColor: Color(0xffB9B9B9),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    //pass
-                    TextFormField(
-                      controller: password,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text'.tr();
-                        }
-                        // RegExp regex = RegExp(
-                        //   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                        // );
-                        // if (!regex.hasMatch(value)) {
-                        //   return 'Enter valid password'.tr();
-                      //}
-                         else {
-                          return null;
-                        }
-                      },
-                      style: TextStyle(color: Color(0xff686868)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        hintText: 'passwordTitle'.tr(),
-                        hintStyle: AppFont.regular16.copyWith(
-                          color: Color(0xff686868),
-                          fontSize: 14,
-                        ),
-
-                        prefixIcon: ImageIcon(AssetImage("assets/icons/lock.png")),
-                        prefixIconColor: Color(0xffB9B9B9),
-                        suffixIcon: ImageIcon(
-                          AssetImage("assets/icons/eye-slash.png"),
-                        ),
-                        suffixIconColor: Color(0xffB9B9B9),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    //pass
-                    TextFormField(
-                      controller: password2,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text'.tr();
-                        }
-                        // RegExp regex = RegExp(
-                        //   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                        // );
-                        // if (!regex.hasMatch(value)) {
-                        //   return 'Enter valid password'.tr();
-                        // } else {
-                        else {if(value!=password.text){
-                          return 'Enter valid password'.tr();
-                        }
-                          return null;
-                        }
-                      },
-                      style: TextStyle(color: Color(0xff686868)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Color(0xffDADADA)
-                                : Color(0xff002D8F),
-                          ),
-                        ),
-                        hintText: 'passwordTitle'.tr(),
-                        hintStyle: AppFont.regular16.copyWith(
-                          color: Color(0xff686868),
-                          fontSize: 14,
-                        ),
-
-                        prefixIcon: ImageIcon(AssetImage("assets/icons/lock.png")),
-                        prefixIconColor: Color(0xffB9B9B9),
-                        suffixIcon: ImageIcon(
-                          AssetImage("assets/icons/eye-slash.png"),
-                        ),
-                        suffixIconColor: Color(0xffB9B9B9),
-                      ),
-                    ),
-                  ],
+                SizedBox(height: 30),
+                // الاسم
+                _buildTextField(
+                  controller: name,
+                  hint: 'أدخل اسمك',
+                  icon: Icons.person_outline,
                 ),
-                SizedBox(height: 47),
-                //ElevatedButton
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 9),
+                SizedBox(height: 16),
+                // البريد
+                _buildTextField(
+                  controller: emailAddress,
+                  hint: 'تسجيل الدخول إلى حسابك', // حسب الصورة
+                  icon: Icons.email_outlined,
+                ),
+                SizedBox(height: 16),
+                // الباسورد
+                _buildTextField(
+                  controller: password,
+                  hint: 'أدخل كلمة المرور',
+                  icon: Icons.lock_outline,
+                  isPassword: true,
+                ),
+                SizedBox(height: 16),
+                // تأكيد الباسورد
+                _buildTextField(
+                  controller: password2,
+                  hint: 'أدخل كلمة المرور',
+                  icon: Icons.lock_outline,
+                  isPassword: true,
+                ),
+                SizedBox(height: 40),
+                // زر إنشاء حساب
+                SizedBox(
                   width: double.infinity,
-                  height: 48,
+                  height: 55,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      backgroundColor: Color(0xff143EAB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     onPressed: () {
                       if (fromKey.currentState!.validate()) {
@@ -253,99 +88,70 @@ class SignUp extends StatelessWidget {
                           emailAddress.text,
                           password.text,
                           name.text,
-                          () {Navigator.pushNamed(context, Login.routeNamed);},
-                          (message) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.grey.shade900,
-                                content: Text(
-                                  message,
-                                  style: const TextStyle(color: Colors.white),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            );
-                          },
+                          () => Navigator.pushNamed(context, Login.routeNamed),
+                          (msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg))),
                         );
                       }
                     },
-                    child: Text(
-                      'SignUpBotton'.tr(),
-                      style: AppFont.Bold20.copyWith(color: Colors.white),
-                    ),
+                    child: Text('إنشاء حساب', style: TextStyle(color: Colors.white, fontSize: 20)),
                   ),
                 ),
-                //TextBotton
+                SizedBox(height: 20),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Already'.tr(),
-                      style: TextStyle(color: Color(0xff686868)),
-                    ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, Login.routeNamed);
-                      },
-                      child: Text(
-                        'LoginBotton'.tr(),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
+                      onPressed: () => Navigator.pushReplacementNamed(context, Login.routeNamed),
+                      child: Text('تسجيل الدخول', style: TextStyle(color: Color(0xff143EAB), decoration: TextDecoration.underline)),
                     ),
+                    Text('هل لديك حساب بالفعل؟'),
                   ],
                 ),
-                //or+divider
                 Row(
                   children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 1,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Color(0xffDADADA)
-                            : Theme.of(context).colorScheme.primary,
-                        indent: 20,
-                        endIndent: 20,
-                      ),
-                    ),
-                    Text(
-                      'or'.tr(),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 1,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Color(0xffDADADA)
-                            : Theme.of(context).colorScheme.primary,
-                        indent: 20,
-                        endIndent: 20,
-                      ),
-                    ),
+                    Expanded(child: Divider()),
+                    Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('أو')),
+                    Expanded(child: Divider()),
                   ],
                 ),
-                //withGoogal
-                SizedBox(height: 24),
-                Container(
-                  alignment: Alignment.center,
-                  child: Theme.of(context).brightness == Brightness.light
-                      ? InkWell(
-                          onTap: () {},
-                          child: Image.asset('assets/icons/Main btn light.png'),
-                        )
-                      : InkWell(
-                          onTap: () {},
-                          child: Image.asset('assets/icons/Main btn dark.png'),
-                        ),
+                SizedBox(height: 20),
+                // زر جوجل
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    side: BorderSide(color: Color(0xff143EAB)),
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/icons/google.png', height: 24), // تأكد من وجود الأيقونة
+                      SizedBox(width: 10),
+                      Text('Login with Google', style: TextStyle(color: Color(0xff143EAB), fontSize: 18)),
+                    ],
+                  ),
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({required TextEditingController controller, required String hint, required IconData icon, bool isPassword = false}) {
+    return TextFormField(
+      controller: controller,
+      obscureText: isPassword,
+      textAlign: TextAlign.right,
+      decoration: InputDecoration(
+        hintText: hint,
+        suffixIcon: Icon(icon, color: Colors.grey),
+        prefixIcon: isPassword ? Icon(Icons.visibility_off_outlined, color: Colors.grey) : null,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
       ),
     );
   }

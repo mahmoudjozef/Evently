@@ -103,7 +103,6 @@ class _FavoriteState extends State<Favorite> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            // Date Badge
                             Positioned(
                               top: 10,
                               left: 10,
@@ -134,7 +133,6 @@ class _FavoriteState extends State<Favorite> {
                                 ),
                               ),
                             ),
-                            // Title and Favorite Icon Bar
                             Positioned(
                               bottom: 10,
                               left: 10,

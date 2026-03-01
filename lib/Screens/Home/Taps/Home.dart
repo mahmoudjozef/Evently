@@ -26,7 +26,6 @@ class Home extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              // التصنيفات (Chips)
               SizedBox(
                 height: 40,
                 child: ListView.separated(
@@ -56,7 +55,6 @@ class Home extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              // القائمة المستلمة من Firebase
               Expanded(
                 child: StreamBuilder<QuerySnapshot<TaskModel>>(
                   stream: FirebaseFunctions.getTasks(),
